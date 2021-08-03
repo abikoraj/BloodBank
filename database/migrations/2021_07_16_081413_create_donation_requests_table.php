@@ -16,11 +16,14 @@ class CreateDonationRequestsTable extends Migration
         Schema::create('donation_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('city_id')->nullable()->constrained('cities')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->text('address');
             $table->text('hospital');
             $table->text('blood_group');
             $table->date('required_date');
-            $table->text('required_amount');
+            $table->integer('required_amount');
             $table->boolean('isComplete');
             $table->timestamps();
         });

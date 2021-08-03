@@ -25,7 +25,9 @@ class CreateUsersTable extends Migration
             $table->date('ldd')->nullable();
             $table->integer('role')->nullable();
             $table->boolean('isPublic')->nullable();
-            $table->foreignId('city_id')->nullable()->constrained('cities');
+            $table->foreignId('city_id')->nullable()->constrained('cities')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamp('phone_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMedicalHistoryReposTable extends Migration
+class CreateMedicalHistoryReportImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateMedicalHistoryReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('medical_history_repos', function (Blueprint $table) {
+        Schema::create('medical_history_report_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('medical_history_id')->constrained('medical_histories')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->text('title');
+            $table->text('image');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateMedicalHistoryReposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medical_history_repos');
+        Schema::dropIfExists('medical_history_report_images');
     }
 }

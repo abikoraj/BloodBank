@@ -35,7 +35,11 @@ class UserController extends Controller
             if (!Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
                 return back()->with('error', 'Phone Number or Password Wrong');
             } else {
-                return redirect()->route('home');
+                if (Auth::user()->city == NULL) {
+                    return redirect()->route('user.edit');
+                } else {
+                    return redirect()->route('home');
+                }
             }
         } else {
             return view('users.login');
@@ -61,7 +65,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->address = $request->address;
-        $user->ispublic = $request->ispublic;
+        $user->ispublic = $request->ispublic ?? 0;
         $user->blood_group = $request->blood_group;
         $user->ldd = $request->ldd;
         $user->city_id = $request->city_id;

@@ -15,7 +15,9 @@ class CreateMedicalHistoriesTable extends Migration
     {
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->text('hospital');
             $table->date('date');
             $table->timestamps();

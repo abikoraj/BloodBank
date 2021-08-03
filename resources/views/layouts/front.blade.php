@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <title>Blood Bank</title>
+    @yield('css')
 </head>
 
 <body class="bg-light">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #8a0303">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Blood Bank</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -68,10 +69,20 @@
             }
         }
     </script>
+    {{-- <script src="{{ asset('assets/js/bootstrap.js') }}"></script> --}}
 
-    <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.navbar-nav a.navbar-link').on('click', function() {
+                var navbarToggle = $('.navbar-toggle');
+                if (navbarToggle.is(':visible')) {
+                    navbarToggle.trigger('click');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

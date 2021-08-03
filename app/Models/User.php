@@ -11,6 +11,21 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function don_req()
+    {
+        return $this->hasMany(DonationRequest::class);
+    }
+
+    public function history()
+    {
+        return $this->hasMany(MedicalHistory::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +33,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'phone',
         'password',
     ];
 
