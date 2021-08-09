@@ -26,7 +26,7 @@ class DonationRequestController extends Controller
         $donationRequest->isComplete = $request->isComplete ?? 0;
         $donationRequest->save();
         // dd($donationRequest);
-        return redirect()->route('user.profile');
+        return redirect()->route('user.profile')->with('message', 'Request Added Successfully!');
     }
 
     public function apiSubmitRequest(Request $request)
@@ -59,7 +59,7 @@ class DonationRequestController extends Controller
         $donationRequest->required_date = $request->required_date;
         $donationRequest->required_amount = $request->required_amount;
         $donationRequest->save();
-        return redirect()->route('user.profile');
+        return redirect()->route('user.profile')->with('message', 'Request Updated Successfully!');
         // dd($donationRequest);
     }
 
@@ -68,12 +68,12 @@ class DonationRequestController extends Controller
         $donreq->isComplete = $request->isComplete ?? 1;
         // dd($donreq);
         $donreq->save();
-        return back();
+        return redirect()->back()->with('message', 'Request Marked as Completed!');
     }
 
     public function delete(DonationRequest $donreq)
     {
         $donreq->delete();
-        return back();
+        return redirect()->back()->with('message', 'Request Deleted Successfully!');
     }
 }
