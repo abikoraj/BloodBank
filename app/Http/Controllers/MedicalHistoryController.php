@@ -63,6 +63,16 @@ class MedicalHistoryController extends Controller
         return redirect()->back()->with('message', 'Report Added Successfully!');
     }
 
+    public function apiSubmit_report(Request $request)
+    {
+        $report = new MedicalHistoryRepo();
+        $report->medical_history_id = $request->medical_history_id;
+        $report->title = $request->title;
+        // dd($report);
+        $report->save();
+        return response()->json($report);
+    }
+
     public function update_report(Request $request)
     {
         $report = MedicalHistoryRepo::find($request->id);
@@ -86,6 +96,16 @@ class MedicalHistoryController extends Controller
         // dd($image);
         $image->save();
         return redirect()->back()->with('message', 'Image Uploaded Successfully!');
+    }
+
+    public function apiSubmit_Image(Request $request)
+    {
+        $image = new MedicalHistoryReportImage();
+        $image->medical_history_repo_id = $request->medical_history_repo_id;
+        $image->rep_image = $request->rep_image->store('data/report', 'public');
+        // dd($image);
+        $image->save();
+        return response()->json($image);
     }
 
     public function del_image(MedicalHistoryReportImage $image)

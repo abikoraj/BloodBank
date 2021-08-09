@@ -29,6 +29,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('near-me', [HomeController::class, 'apiNearMe']);
     Route::post('addrequest', [DonationRequestController::class, 'apiSubmitRequest']);
     Route::post('addMedicalHistory', [MedicalHistoryController::class, 'apiSubmit_mh']);
+    Route::post('addReport', [MedicalHistoryController::class, 'apiSubmit_report']);
+    Route::post('addImage', [MedicalHistoryController::class, 'apiSubmit_Image']);
 });
 
 
