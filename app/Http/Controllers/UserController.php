@@ -19,6 +19,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->name;
             $user->phone = $request->phone;
+            $user->role = 2;
             $user->password = bcrypt($request->password);
             $user->save();
             // dd($user);
@@ -28,21 +29,50 @@ class UserController extends Controller
         }
     }
 
+    public function apiSignup(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required|numeric|starts_with:98|digits:10|unique:users,phone',
+            'password' => 'required|min:8'
+        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->role = 2;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        // dd($user);
+        $user->accessToken = $user->createToken('authToken')->accessToken;
+        return response()->json($user);
+    }
+
     public function login(Request $request)
     {
         if ($request->getMethod() == 'POST') {
-            // return $request->all();
             if (!Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
                 return back()->with('error', 'Phone Number or Password Wrong');
             } else {
-                if (Auth::user()->city == NULL) {
+                if (Auth::user()->city_id == NULL) {
                     return redirect()->route('user.edit');
                 } else {
-                    return redirect()->route('home');
+                    return redirect()->route('user.profile');
                 }
             }
         } else {
             return view('users.login');
+        }
+    }
+
+    public function apiSignin(Request $request)
+    {
+        if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
+            $user = Auth::user();
+            $user->accessToken = $user->createToken('authToken')->accessToken;
+            return response()->json($user);
+        } else {
+            return response("wrong phone number or password", 500);
         }
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\City;
+use App\Models\DonationRequest;
 use App\Models\User;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -46,5 +47,21 @@ Artisan::command('make:city', function () {
         $city = new City();
         $city->name = $faker->city();
         $city->save();
+    }
+});
+
+Artisan::command('make:request', function () {
+    $faker = Faker\Factory::create();
+    for ($i = 0; $i < 2000; $i++) {
+        $donationRequest = new DonationRequest();
+        $donationRequest->user_id = mt_rand(10, 1000);
+        $donationRequest->city_id = mt_rand(1, 100);
+        $donationRequest->address = $faker->streetAddress;
+        $donationRequest->blood_group = mt_rand(0, 7);
+        $donationRequest->required_amount = mt_rand(1, 4);
+        $donationRequest->required_date = $faker->dateTimeThisYear($max = 'now');
+        $donationRequest->isComplete = mt_rand(0, 1);
+        $donationRequest->hospital = $faker->company;
+        $donationRequest->save();
     }
 });

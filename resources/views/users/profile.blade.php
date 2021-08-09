@@ -1,19 +1,39 @@
 @extends('layouts.front')
+{{-- @section('css')
+    <style>
+        .mh-edit {
+            z-index: 3;
+        }
+
+        .mh-edit:hover {
+            color: #198754;
+            /* display: block; */
+
+        }
+
+        .mh-delete:hover {
+            color: #DC3545;
+        }
+
+    </style>
+@endsection --}}
 @section('content')
     @php
     $user = Auth::user();
     @endphp
     <div class="container mt-4 ">
         <div class="main-body">
-            @if (session()->has('message'))
+            {{-- @if (session()->has('message'))
                 <div class="alert alert-success alert-dismissible fade show py-1 px-2 " role="alert">
                     <small>{{ session()->get('message') }}</small>
                     <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            @endif
+            @endif --}}
 
             <div class="row gutters-sm">
+
                 <div class="col-md-4 mb-3">
+
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
@@ -34,6 +54,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="d-flex justify-content-between align-items-baseline mt-4">
                         <span class="text-muted h4">Medical History</span>
                         {{-- <a class="btn btn-outline-primary btn-sm rounded-pill" href="{{ route('medical.add') }}">Add
@@ -50,18 +71,19 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Hospital</th>
                                         <th scope="col">Date</th>
-                                        {{-- <th scope="col">Handle</th> --}}
+                                        {{-- <th scope="col">#</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody style="cursor: pointer;">
                                     @foreach ($user->history->all() as $item)
-                                        <tr>
-                                            <td>{{ $item->id }}</td>
+                                        <tr class="clickable"
+                                            onclick="window.location='{{ route('medical.show', ['mh' => $item->id]) }}'">
+                                            {{-- <a href="{{ route('medical.show', ['mh' => $item->id]) }}"> --}}
                                             <td>{{ $item->hospital }}</td>
                                             <td>{{ $item->date }}</td>
+
                                         </tr>
                                     @endforeach
 
@@ -221,13 +243,45 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for adding Medical History -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Add Medical Histroy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('medical.submit') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3 col-auto">
+                            <label for="hospital" class="form-label">Hospital Name</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" name="hospital"
+                                placeholder="Enter Hospital Name Here" required>
+                        </div>
+                        <div class="mb-3 col-auto">
+                            <label for="date" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="exampleFormControlInput1" name="date"
+                                placeholder="Enter Date Here" required>
+                        </div>
+                        <div class="mb-3 col-auto d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Medical History -->
+    <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropEditLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropEditLabel">Edit Medical Histroy</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('medical.submit') }}" method="POST">

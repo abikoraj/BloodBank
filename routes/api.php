@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\DonationRequestController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MedicalHistoryController;
+use App\Http\Controllers\UserController;
+use App\Models\DonationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +20,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+
+    Route::post('search',  [HomeController::class, 'index']);
+    Route::get('user', function () {
+        return response()->json(Auth::user());
+    });
+    Route::get('near-me', [HomeController::class, 'apiNearMe']);
+    Route::post('addrequest', [DonationRequestController::class, 'apiSubmitRequest']);
+    Route::post('addMedicalHistory', [MedicalHistoryController::class, 'apiSubmit_mh']);
 });
+
+
+Route::post('ttsignup',  [UserController::class, 'apiSignup']);
+Route::post('ttsignin',  [UserController::class, 'apiSignin']);

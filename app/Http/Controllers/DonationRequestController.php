@@ -29,6 +29,21 @@ class DonationRequestController extends Controller
         return redirect()->route('user.profile');
     }
 
+    public function apiSubmitRequest(Request $request)
+    {
+        $donationRequest = new DonationRequest();
+        $donationRequest->user_id = Auth::user()->id;
+        $donationRequest->city_id = $request->city_id;
+        $donationRequest->address = $request->address;
+        $donationRequest->hospital = $request->hospital;
+        $donationRequest->blood_group = $request->blood_group;
+        $donationRequest->required_date = $request->required_date;
+        $donationRequest->required_amount = $request->required_amount;
+        $donationRequest->isComplete = $request->isComplete ?? 0;
+        $donationRequest->save();
+        return response()->json($donationRequest);
+    }
+
     public function edit(DonationRequest $donreq)
     {
         return view('donation_request.edit', ['donreq' => $donreq]);

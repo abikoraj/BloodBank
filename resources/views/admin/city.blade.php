@@ -1,4 +1,7 @@
 @extends('admin.layout')
+@php
+$city_count = App\Models\City::count();
+@endphp
 @section('content')
 
     <h2>Cities</h2>
@@ -25,7 +28,7 @@
     </form>
 
     <hr class="mt-4">
-    <h5 class="text-muted">Cities List</h5>
+    <h5 class="text-muted d-inline">Cities List </h5><small class="text-muted ">({{ $city_count }} entries)</small>
 
     <div>
         <table class="table" id="example">

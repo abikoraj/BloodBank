@@ -26,8 +26,13 @@
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->city_id != null ? $user->city->name : '' }}</td>
                     <td>{{ $user->address }}</td>
-                    <td>{{ $user->blood_group }}</td>
-                    {{-- <td>{{ \App\Helper::getBG()[$user->blood_group] }}</td> --}}
+                    {{-- <td>{{ $user->blood_group }}</td> --}}
+                    @if ($user->blood_group != null)
+
+                        <td>{{ \App\Helper::getBG()[$user->blood_group] }}</td>
+                    @else
+                        <td>--</td>
+                    @endif
                     <td>{{ $user->ldd }}</td>
 
                 </tr>

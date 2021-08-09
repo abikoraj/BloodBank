@@ -15,7 +15,10 @@ class CreateMedicalHistoryReportImagesTable extends Migration
     {
         Schema::create('medical_history_report_images', function (Blueprint $table) {
             $table->id();
-            $table->text('image');
+            $table->text('rep_image');
+            $table->foreignId('medical_history_repo_id')->constrained('medical_history_repos')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
