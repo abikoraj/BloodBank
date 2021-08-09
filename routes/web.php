@@ -110,7 +110,7 @@ Route::middleware(['role:1'])->group(function () {
             Route::name('sliders.')->group(function () {
                 Route::get('/', [SliderController::class, 'index'])->name('index');
                 Route::post('/submit', [SliderController::class, 'submit'])->name('submit');
-                Route::post('/update/{slider}', [SliderController::class, 'update'])->name('update');
+                Route::post('/update', [SliderController::class, 'update'])->name('update');
                 Route::get('/delete/{slider}', [SliderController::class, 'delete'])->name('delete');
             });
         });

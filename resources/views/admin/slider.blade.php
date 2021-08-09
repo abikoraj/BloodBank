@@ -49,12 +49,11 @@
                     <h5 class="modal-title" id="SliderEditLabel">Add Report Image</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('sliders.update', ['slider' => $slider->id]) }}" method="POST"
-                    enctype="multipart/form-data">
+                <form action="{{ route('sliders.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3 col-auto">
-                            <input type="hidden" name="id" value="{{ $slider->id }}" required id="e_slider_id">
+                            <input type="hidden" name="id" required id="e_slider_id">
                             <label for="name" class="form-label">Upload Report Image</label>
                             <input type="file" class="form-control" id="exampleFormControlInput1" name="image"
                                 placeholder="Enter Report Name Here" required id="e_slider_image">

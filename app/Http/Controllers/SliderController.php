@@ -24,8 +24,9 @@ class SliderController extends Controller
         return back()->with('message', 'Slider Image Uploaded Successfully!');
     }
 
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request)
     {
+        $slider = Slider::find($request->id);
         if ($request->hasFile('image')) {
             $slider->image = $request->image->store('data/sliders', 'public');
         }
