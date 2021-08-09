@@ -26,7 +26,7 @@
             {{-- @csrf --}}
             <div>
                 <img src="{{ asset($slider->image) }}" class="profileDisplay" onclick="triggerClick()"
-                    style="width: 100%; cursor: pointer;">
+                    style="width: 100%; cursor: pointer;" alt="sliderimage">
                 <input type="file" name="image" onchange="displayImage(this)" id="profilepic" style="display: none;">
                 <span class="text-danger">@error('image'){{ $message }} @enderror</span>
             </div>

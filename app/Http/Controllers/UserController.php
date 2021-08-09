@@ -14,7 +14,7 @@ class UserController extends Controller
             $request->validate([
                 'name' => 'required',
                 'phone' => 'required|numeric|starts_with:98|digits:10|unique:users,phone',
-                'password' => 'required|min:8|alpha_num'
+                'password' => 'required|min:8|string'
             ]);
             $user = new User();
             $user->name = $request->name;
@@ -35,7 +35,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'phone' => 'required|numeric|starts_with:98|digits:10|unique:users,phone',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8|string'
         ]);
         $user = new User();
         $user->name = $request->name;
