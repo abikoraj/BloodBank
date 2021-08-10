@@ -26,11 +26,23 @@ Route::middleware('auth:api')->group(function () {
     Route::get('user', function () {
         return response()->json(Auth::user());
     });
+    Route::post('editUser', [UserController::class, 'apiUpdate']);
     Route::get('near-me', [HomeController::class, 'apiNearMe']);
+
     Route::post('addrequest', [DonationRequestController::class, 'apiSubmitRequest']);
+    Route::post('editrequest', [DonationRequestController::class, 'apiUpdateRequest']);
+    Route::post('delRequest', [DonationRequestController::class, 'apiDel_Request']);
+
     Route::post('addMedicalHistory', [MedicalHistoryController::class, 'apiSubmit_mh']);
+    Route::post('editMedicalHistory', [MedicalHistoryController::class, 'apiUpdate_mh']);
+    Route::post('delMedicalHistory', [MedicalHistoryController::class, 'apiDel_mh']);
+
     Route::post('addReport', [MedicalHistoryController::class, 'apiSubmit_report']);
+    Route::post('editReport', [MedicalHistoryController::class, 'apiUpdate_report']);
+    Route::post('delReport', [MedicalHistoryController::class, 'apiDel_report']);
+
     Route::post('addImage', [MedicalHistoryController::class, 'apiSubmit_Image']);
+    Route::post('delImage', [MedicalHistoryController::class, 'apiDel_Image']);
 });
 
 

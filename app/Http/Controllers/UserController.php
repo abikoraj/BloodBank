@@ -104,6 +104,24 @@ class UserController extends Controller
         // $user->save();
         return redirect()->route('user.profile')->with('message', 'Profile Updated Successfully!');
     }
+    public function apiUpdate(Request $request)
+    {
+        $user = Auth::user();
+        if ($request->hasFile('image')) {
+            $user->image = $request->image->store('data/user-pics', 'public');
+        }
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->ispublic = $request->ispublic ?? 0;
+        $user->blood_group = $request->blood_group;
+        $user->ldd = $request->ldd;
+        $user->city_id = $request->city_id;
+        $user->save();
+        // dd($user);
+        // $user->save();
+        return response()->json($user);
+    }
 
     public function logout(Request $request)
     {

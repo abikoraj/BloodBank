@@ -20,8 +20,8 @@ class HomeController extends Controller
     {
         $ct = Auth::user()->city_id;
         $dr = DonationRequest::where('city_id', $ct)->where('isComplete', 0)->get();
-        dd($ct);
-        // return response()->json($dr);
+        // dd($ct);
+        return response()->json($dr);
     }
 
     public function  index(Request $request)

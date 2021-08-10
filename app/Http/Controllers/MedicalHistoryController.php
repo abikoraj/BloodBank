@@ -47,10 +47,26 @@ class MedicalHistoryController extends Controller
         return redirect()->back()->with('message', 'Medical History Updated Successfully!');
     }
 
+    public function apiUpdate_mh(Request $request)
+    {
+        $mh = MedicalHistory::where('id', $request->mh_id)->first();
+        $mh->hospital = $request->hospital;
+        $mh->date = $request->date;
+        // dd($mh);
+        $mh->save();
+        return response()->json($mh);
+    }
+
     public function delete_mh(MedicalHistory $mh)
     {
         $mh->delete();
         return redirect()->back()->with('message', 'Medical History Deleted Successfully!');
+    }
+    public function apiDel_mh(Request $request)
+    {
+        $mh = MedicalHistory::where('id', $request->mh_id)->first();
+        $mh->delete();
+        return response()->json("Deleted Successfully!");
     }
 
     public function submit_report(Request $request)
@@ -82,10 +98,25 @@ class MedicalHistoryController extends Controller
         return redirect()->back()->with('message', 'Report Updated Successfully!');
     }
 
+    public function apiUpdate_report(Request $request)
+    {
+        $report = MedicalHistoryRepo::find($request->id);
+        $report->title = $request->title;
+        // dd($report);
+        $report->save();
+        return response()->json($report);
+    }
+
     public function delete_report(MedicalHistoryRepo $report)
     {
         $report->delete();
         return redirect()->back()->with('message', 'Report Deleted Successfully!');
+    }
+    public function apiDel_report(Request $request)
+    {
+        $report = MedicalHistoryRepo::find($request->id);
+        $report->delete();
+        return response()->json("Deleted Successfully!");
     }
 
     public function submit_image(Request $request)
@@ -112,5 +143,12 @@ class MedicalHistoryController extends Controller
     {
         $image->delete();
         return redirect()->route('user.profile')->with('message', 'Image Deleted Successfully!');
+    }
+
+    public function apiDel_Image(Request $request)
+    {
+        $image = MedicalHistoryReportImage::find($request->id);
+        $image->delete();
+        return response()->json("Deleted Successfully!");
     }
 }
