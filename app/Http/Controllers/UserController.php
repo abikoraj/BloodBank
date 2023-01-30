@@ -57,7 +57,7 @@ class UserController extends Controller
                 if (Auth::user()->city_id == NULL) {
                     return redirect()->route('user.edit');
                 } else {
-                    return redirect()->route('user.profile');
+                    return redirect()->route('home');
                 }
             }
         } else {

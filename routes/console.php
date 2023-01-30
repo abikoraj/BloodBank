@@ -24,14 +24,14 @@ Artisan::command('inspire', function () {
 Artisan::command('make:user', function () {
     $faker = Faker\Factory::create();
     $phone = 9800000100;
-    for ($i = 0; $i < 1000; $i++) {
+    for ($i = 0; $i < 100; $i++) {
         # code...
         $user = new User();
         $user->name = $faker->name();
         $user->role = 2;
         $user->phone = $phone + $i;
         $user->blood_group = mt_rand(0, 7);
-        $user->city_id = mt_rand(1, 100);
+        $user->city_id = mt_rand(1, 10);
         $user->address = $faker->streetAddress;
         $user->ldd = $faker->dateTimeThisYear($max = 'now');
         // $user->email_verified_at= now();
@@ -43,7 +43,7 @@ Artisan::command('make:user', function () {
 
 Artisan::command('make:city', function () {
     $faker = Faker\Factory::create();
-    for ($i = 0; $i < 100; $i++) {
+    for ($i = 0; $i < 10; $i++) {
         $city = new City();
         $city->name = $faker->city();
         $city->save();
@@ -52,10 +52,10 @@ Artisan::command('make:city', function () {
 
 Artisan::command('make:request', function () {
     $faker = Faker\Factory::create();
-    for ($i = 0; $i < 2000; $i++) {
+    for ($i = 0; $i < 200; $i++) {
         $donationRequest = new DonationRequest();
-        $donationRequest->user_id = mt_rand(10, 1000);
-        $donationRequest->city_id = mt_rand(1, 100);
+        $donationRequest->user_id = mt_rand(10, 100);
+        $donationRequest->city_id = mt_rand(1, 10);
         $donationRequest->address = $faker->streetAddress;
         $donationRequest->blood_group = mt_rand(0, 7);
         $donationRequest->required_amount = mt_rand(1, 4);

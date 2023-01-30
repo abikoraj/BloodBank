@@ -142,7 +142,7 @@ class MedicalHistoryController extends Controller
     public function del_image(MedicalHistoryReportImage $image)
     {
         $image->delete();
-        return redirect()->route('user.profile')->with('message', 'Image Deleted Successfully!');
+        return redirect()->back()->with('message', 'Image Deleted Successfully!');
     }
 
     public function apiDel_Image(Request $request)
